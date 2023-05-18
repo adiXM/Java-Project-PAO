@@ -3,14 +3,15 @@ import java.util.*;
 
 public class Person {
 
-    protected int id;
+    protected String id;
     protected String firstName, lastName;
 
     protected Date birthDate;
 
     protected String email, phone;
 
-    public Person(String firstName, String lastName, Date birthDate, String email, String phone) {
+    public Person(String id, String firstName, String lastName, Date birthDate, String email, String phone) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -18,15 +19,20 @@ public class Person {
         this.phone = phone;
     }
 
-    public Person() {
-
+    public Person(String firstName, String lastName, Date birthDate, String email, String phone) {
+        this.id = UUID.randomUUID().toString();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.phone = phone;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
