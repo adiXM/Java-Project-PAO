@@ -4,13 +4,38 @@ import java.util.Date;
 
 public class Driver extends Person {
 
-    protected int totalOrders;
+    private String username;
+    private int totalOrders;
+    private double totalIncome;
 
-    protected double totalIncome;
-
-    public Driver(String id, String firstName, String lastName, Date birthDate, String email, String phone, int totalOrders, double totalIncome) {
+    public Driver(String id,String username, String firstName, String lastName, Date birthDate, String email, String phone, int totalOrders, double totalIncome) {
         super(id, firstName, lastName, birthDate, email, phone);
+        this.username = username;
         this.totalOrders = 0;
         this.totalIncome = 0;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getTotalOrders() {
+        return totalOrders;
+    }
+
+    public void setTotalOrders(int totalOrders) {
+        this.totalOrders = totalOrders;
+    }
+
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+
+    public void setTotalIncome(double totalIncome) {
+        this.totalIncome = totalIncome;
     }
 }
