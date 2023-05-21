@@ -38,13 +38,15 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return
-                "first name: " + firstName + '\'' +
-                        ", lastname: " + lastName + '\'' +
-                        ", email: " + email + '\'' +
-                        ", phone: " + phone + '\'' +
-                        ", username: " + username + '\'' +
-                        ", birthdate:" + birthDate + '\n'
-                ;
+        return "Customer{" +
+                "username='" + username + '\'' +
+                ", address='" + address + '\'' +
+                ", id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }

@@ -22,8 +22,8 @@ public class DatabaseService {
     };
 
     private static final String[] QUERY_CREATE_TABLES = {
-            "customers (id VARCHAR(36) PRIMARY KEY, username varchar(30) UNIQUE, firstname varchar(20), lastname varchar(20), email varchar(30), birthdate date, phone varchar(10), address varchar(20))",
-            "drivers (id VARCHAR(36) PRIMARY KEY, username varchar(30) UNIQUE, firstname varchar(20), lastname varchar(20), email varchar(30),total_orders int, total_income float, birthdate date, phone varchar(10))",
+            "customers (id VARCHAR(36) PRIMARY KEY, username varchar(30) UNIQUE, firstname varchar(20), lastname varchar(20), email varchar(30) UNIQUE, birthdate date, phone varchar(10), address varchar(20))",
+            "drivers (id VARCHAR(36) PRIMARY KEY, username varchar(30) UNIQUE, firstname varchar(20), lastname varchar(20), email varchar(30) UNIQUE,total_orders int, total_income float, birthdate date, phone varchar(10))",
             "products (id VARCHAR(36) NOT NULL, name VARCHAR(255), price DECIMAL(10,2), PRIMARY KEY (id));",
             "restaurants (id VARCHAR(36) NOT NULL, name VARCHAR(255), address VARCHAR(255), PRIMARY KEY (id));",
             "menu (restaurant_id VARCHAR(36) NOT NULL, product_id VARCHAR(36) NOT NULL, FOREIGN KEY (restaurant_id) REFERENCES restaurants(id), FOREIGN KEY (product_id) REFERENCES products(id));",
@@ -37,26 +37,30 @@ public class DatabaseService {
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
         String sql = "CREATE TABLE IF NOT EXISTS ";
 
-        try {
-            for (String query: QUERY_CREATE_TABLES) {
+        for (String query: QUERY_CREATE_TABLES) {
+            try {
                 this.executeSql(databaseConnection, sql + query);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
+        System.out.println("Table creation completed successfully.");
     }
 
     public void dropTables() {
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
         String query = "DROP TABLE IF EXISTS ";
 
-        for (String tabel: TABLES) {
+        for (String table: TABLES) {
             try {
-                this.executeSql(databaseConnection, query + tabel);
+                this.executeSql(databaseConnection, query + table);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+
+        System.out.println("Table deletion completed successfully.");
     }
 
     private void executeSql(Connection connection, String sql) throws SQLException {
