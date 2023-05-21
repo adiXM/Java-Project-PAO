@@ -24,9 +24,9 @@ public class Restaurant {
         this.id = id;
     }
 
-    public Restaurant(String name, String adress, String id, List<Product> menu) {
+    public Restaurant(String name, String address, String id, List<Product> menu) {
         this.name = name;
-        this.address = adress;
+        this.address = address;
         this.menu = menu;
         this.id = id;
     }

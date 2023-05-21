@@ -6,9 +6,9 @@ public class Driver extends Person {
 
     protected int totalOrders;
 
-    protected float totalIncome;
+    protected double totalIncome;
 
-    public Driver(int id, String firstName, String lastName, Date birthDate, String email, String phone, int totalOrders, float totalIncome) {
+    public Driver(String id, String firstName, String lastName, Date birthDate, String email, String phone, int totalOrders, double totalIncome) {
         super(id, firstName, lastName, birthDate, email, phone);
         this.totalOrders = 0;
         this.totalIncome = 0;
