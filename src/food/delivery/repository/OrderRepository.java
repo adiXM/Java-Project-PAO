@@ -35,14 +35,14 @@ public class OrderRepository {
         }
     }
 
-    public void createOrderItems(String orderId, String productName, int quantity) throws SQLException {
+    public void createOrderItems(String orderId, String productId, int quantity) throws SQLException {
 
-        String restaurantSql = "INSERT INTO order_line_items (order_id, product_name, quantity) " +
+        String restaurantSql = "INSERT INTO order_line_items (order_id, product_id, quantity) " +
                 "VALUES (?, ?, ?)";
 
         try (PreparedStatement orderStatement = connection.prepareStatement(restaurantSql)) {
             orderStatement.setString(1, orderId);
-            orderStatement.setString(2, productName);
+            orderStatement.setString(2, productId);
             orderStatement.setInt(3, quantity);
 
             orderStatement.executeUpdate();

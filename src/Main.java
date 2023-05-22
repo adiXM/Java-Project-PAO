@@ -1,6 +1,4 @@
-import com.mysql.cj.log.Log;
 import config.DatabaseConfiguration;
-import food.delivery.model.Driver;
 import food.delivery.model.EventLog;
 import food.delivery.repository.*;
 import food.delivery.service.*;
@@ -97,7 +95,7 @@ public class Main {
                     case "help" -> printCommands();
                     case "end" -> end = true;
                 }
-                if(commands.contains(command))
+                if(commands.contains(command) && !command.equals("remove_tables"))
                     loggerService.createLog(new EventLog(command, new Date()));
             } catch (Exception e){
                 System.out.println(e);

@@ -131,7 +131,7 @@ public class OrderService {
     public void createOrder(Order order) throws SQLException {
         this.orderRepository.create(order);
         for(OrderLineItem item: order.getOrderLineItems()) {
-            this.orderRepository.createOrderItems(order.getId(), item.getProduct().getName(), item.getQuantity());
+            this.orderRepository.createOrderItems(order.getId(), item.getProduct().getId(), item.getQuantity());
         }
     }
 
