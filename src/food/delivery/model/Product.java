@@ -30,6 +30,12 @@ public class Product {
         this.price = price;
     }
 
+    public Product(String name, double price, String id) {
+        this.name = name;
+        this.price = price;
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return  "Name= " + name + ' ' +

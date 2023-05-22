@@ -125,7 +125,7 @@ public class CustomerService {
     }
 
     public void getAllCustomers() throws SQLException {
-        List<Customer> customerList = customerRepository.getAll();
+        List<Customer> customerList = this.getAllCustomersAsList();
 
         if(customerList.size() == 0) {
             System.out.println("No customers found in database.");
@@ -135,5 +135,9 @@ public class CustomerService {
         for (Customer customer: customerList) {
             System.out.println(customer);
         }
+    }
+
+    public List<Customer> getAllCustomersAsList() throws SQLException {
+        return customerRepository.getAll();
     }
 }

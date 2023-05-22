@@ -109,8 +109,9 @@ public class CustomerRepository {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM customers";
 
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 Customer customer = mapResultSetToCustomer(resultSet);

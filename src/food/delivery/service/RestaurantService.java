@@ -110,6 +110,24 @@ public class RestaurantService {
         }
     }
 
+    public void getAllRestaurants() throws SQLException {
+
+        List<Restaurant> restaurantList = this.getAllRestaurantsAsList();
+
+        if(restaurantList.size() == 0) {
+            System.out.println("No restaurants found in database.");
+            return;
+        }
+
+        /*for (Restaurant restaurant: restaurantList) {
+            System.out.println(customer);
+        }*/
+    }
+
+    public List<Restaurant> getAllRestaurantsAsList() throws SQLException {
+        return this.restaurantRepository.getAll();
+    }
+
     public void createRestaurant(Restaurant restaurant) throws SQLException {
         this.restaurantRepository.create(restaurant);
     }

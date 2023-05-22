@@ -1,8 +1,13 @@
 package food.delivery.repository;
 import food.delivery.model.Customer;
+import food.delivery.model.Product;
 import food.delivery.model.Restaurant;
 
+import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class RestaurantRepository {
 
     private final Connection connection;
@@ -67,5 +72,64 @@ public class RestaurantRepository {
         }
 
         return restaurant;
+    }
+
+    public List<Restaurant> getAll() throws SQLException {
+        List<Restaurant> restaurants = new ArrayList<>();
+        String sql = "SELECT id, name, address FROM restaurants";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Restaurant restaurant = mapResultSetToRestaurant(resultSet);
+                restaurant.setMenu(this.getMenu(restaurant.getId()));
+                restaurants.add(restaurant);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return restaurants;
+    }
+
+    private List<Product> getMenu(String restaurantId) {
+
+        List<Product> menu = new ArrayList<>();
+        String sql = "SELECT m.product_id, p.name, p.price FROM menu m " +
+                "INNER JOIN products p ON p.id = m.product_id " +
+                "WHERE m.restaurant_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, restaurantId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Product product = mapResultSetToProduct(resultSet);
+                menu.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return menu;
+    }
+
+    private Restaurant mapResultSetToRestaurant(ResultSet resultSet) throws SQLException {
+        String id = resultSet.getString("id");
+        String name = resultSet.getString("name");
+        String address = resultSet.getString("address");
+
+        return new Restaurant(id, name, address);
+    }
+
+    private Product mapResultSetToProduct(ResultSet resultSet) throws SQLException {
+        String id = resultSet.getString("product_id");
+        double price = resultSet.getDouble("price");
+        String name = resultSet.getString("name");
+
+        return new Product(name, price, id);
     }
 }
