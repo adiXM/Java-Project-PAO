@@ -1,7 +1,6 @@
 import config.DatabaseConfiguration;
-import food.delivery.repository.CustomerRepository;
-import food.delivery.service.CustomerService;
-import food.delivery.service.DatabaseService;
+import food.delivery.repository.*;
+import food.delivery.service.*;
 
 import java.sql.Connection;
 import java.text.ParseException;
@@ -16,8 +15,18 @@ public class Main {
         DatabaseService dbService = new DatabaseService();
 
         Connection databaseConnection = DatabaseConfiguration.getDatabaseConnection();
+
         CustomerRepository customerRepository = new CustomerRepository(databaseConnection);
+        RestaurantRepository restaurantRepository = new RestaurantRepository(databaseConnection);
+        ProductRepository productRepository = new ProductRepository(databaseConnection);
+        IngredientRepository ingredientRepository = new IngredientRepository(databaseConnection);
+        MenuRepository menuRepository = new MenuRepository(databaseConnection);
+
         CustomerService customerService = new CustomerService(customerRepository);
+        MenuService menuService = new MenuService(menuRepository);
+        IngredientService ingredientService = new IngredientService(ingredientRepository);
+        ProductService productService = new ProductService(productRepository, ingredientService);
+        RestaurantService restaurantService = new RestaurantService(restaurantRepository, productService, menuService);
 
 
         while (!end){
@@ -32,6 +41,9 @@ public class Main {
                     case "update_customer" -> customerService.updateCustomer(in);
                     case "delete_customer" -> customerService.deleteCustomer(in);
                     case "get_all_customers" -> customerService.getAllCustomers();
+                    case "create_restaurant" -> restaurantService.createRestaurant(in);
+                    case "remove_restaurant" -> restaurantService.deleteRestaurant(in);
+                    case "get_restaurant" -> restaurantService.getRestaurant(in);
                     //case "help" -> printAllCommands();
                     case "end" -> end = true;
                 }

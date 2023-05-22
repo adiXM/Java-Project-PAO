@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomerService {
-
-    private DatabaseService databaseService;
-
     private final CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {

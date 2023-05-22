@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Restaurant {
 
-    private String id;
+    private final String id;
     private String name;
     private String address;
     private List<Product> menu;
